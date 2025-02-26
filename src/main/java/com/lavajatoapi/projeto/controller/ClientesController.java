@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/hello")
+@RequestMapping("/clientes")
 public class ClientesController {
 
     private final ClienteService clienteService;
@@ -27,6 +28,11 @@ public class ClientesController {
     @GetMapping()
     public ResponseEntity<List<Clientes>> listar() {
         return ResponseEntity.status(200).body(clienteService.listarCliente());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Clientes>> buscarCliente(@PathVariable Long id) {
+        return ResponseEntity.status(200).body(clienteService.listarClientesbyId(id));
     }
 
     @PostMapping

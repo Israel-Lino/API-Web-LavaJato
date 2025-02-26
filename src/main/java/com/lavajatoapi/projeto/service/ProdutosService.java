@@ -4,6 +4,7 @@ import com.lavajatoapi.projeto.entities.Produtos;
 import com.lavajatoapi.projeto.repository.IProduto;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -20,10 +21,9 @@ public class ProdutosService {
     }
 
     public Produtos cadastrarProduto(Produtos produto){
-        /*
-        if(produto.getCliente() == null || repository.existsById(produto.getCliente().getId())){
-            throw new IllegalArgumentException("Cliente inválido ou inexistente");
-        }*/
+        if(produto.getData() == null){
+            produto.setData(LocalDate.now());
+        }
         return repository.save(produto);
     }
 

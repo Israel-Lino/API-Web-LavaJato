@@ -1,12 +1,14 @@
 package com.lavajatoapi.projeto.service;
 
 import com.lavajatoapi.projeto.entities.Clientes;
+import com.lavajatoapi.projeto.factory.ClientesFactory;
 import com.lavajatoapi.projeto.repository.ICliente;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClienteService {
@@ -23,16 +25,21 @@ public class ClienteService {
         return repository.findAll();
     }
 
+    public Optional<Clientes> listarClientesbyId(Long id){
+        return repository.findById(id);
+    }
+
     public Clientes cadastrarCliente(Clientes clientes){
         String encoder = this.passwordEncoder.encode(clientes.getSenha());
-        clientes.setSenha(encoder);
-        return repository.save(clientes);
+        Clientes novoCliente = ClientesFactory.createCliente(clientes.getNome(), clientes.getEmail(), encoder, clientes.getTelefone());
+        return repository.save(novoCliente);
     }
 
     public Clientes editarCliente(Clientes clientes){
         String encoder = this.passwordEncoder.encode(clientes.getSenha());
-        clientes.setSenha(encoder);
-        return repository.save(clientes);
+        Clientes clienteAtualizado = ClientesFactory.createCliente(clientes.getNome(), clientes.getEmail(), encoder, clientes.getTelefone());
+        clienteAtualizado.setId(clientes.getId());
+        return repository.save(clienteAtualizado);
     }
 
     public boolean excluirCliente(Long id){

@@ -29,7 +29,7 @@ public class ProdutosController {
         return ResponseEntity.status(200).body(produtosService.findAll());
     }
 
-    @GetMapping("/cliente/{clienteId}")
+    @GetMapping("/clientes/{clienteId}")
     public ResponseEntity<List<Produtos>> buscarCliente(@PathVariable Long clienteId){
         return ResponseEntity.ok(produtosService.listarProdutosPorCliente(clienteId));
     }

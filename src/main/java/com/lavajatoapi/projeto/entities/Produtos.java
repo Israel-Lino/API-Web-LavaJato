@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Setter
 @Getter
 @Entity
@@ -25,6 +27,9 @@ public class Produtos {
     @NotNull(message = "preço é obrigatorio")
     @Column(name = "preco", nullable = false)
     private Double preco;
+
+    @Column(name = "data", nullable = false)
+    private LocalDate data;
 
     @NotNull(message = "O Cliente é obrigatorio")
     @ManyToOne
